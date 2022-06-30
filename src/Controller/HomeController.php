@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,12 +13,11 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function homepage(EntityManagerInterface $em)
+    public function homepage(ProductRepository $productRepository)
     {
-        $productRepository = $em->getRepository(Product::class);
-        $products = $productRepository->find(3);
-        dd($products);
-
-        return $this->render('home.html.twig');
+        $products = $productRepository->findBy([], [], 3);
+        return $this->render('home.html.twig', [
+            'products' => $products,
+        ]);
     }
 }
