@@ -10,6 +10,7 @@
         "cocur/slugify": "^4.1",
         "doctrine/annotations": "^1.13",
         "doctrine/doctrine-bundle": "^2.7",
+        "doctrine/doctrine-fixtures-bundle": "^3.4",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.12",
         "phpdocumentor/reflection-docblock": "^5.3",
@@ -43,8 +44,7 @@
         "symfony/web-link": "5.4.*",
         "symfony/yaml": "5.4.*",
         "twig/extra-bundle": "^3.4",
-        "twig/twig": "^3.4",
-      "ext-http": "*"
+        "twig/twig": "^3.4"
     },
     "config": {
         "allow-plugins": {
