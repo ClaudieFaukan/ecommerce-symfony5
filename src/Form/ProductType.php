@@ -6,6 +6,7 @@ use App\Entity\Product;
 use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use App\Form\DataTransformer\CentimesTransformer;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
@@ -48,7 +49,8 @@ class ProductType extends AbstractType
                 'choice_label' => function (Category $category) {
                     return strtoupper($category->getName());
                 }
-            ]);;
+            ]);
+        //$builder->get('price')->addModelTransformer(new CentimesTransformer);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
