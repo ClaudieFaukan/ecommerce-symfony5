@@ -2,25 +2,27 @@
 
 namespace App\Entity;
 
-use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass=CategoryRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
  */
 class Category
 {
     /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le nom de la catégorie est obligatoire")
+     * @Assert\Length(min=3, minMessage="Le nom de la catégorie doit faire au moins 3 caractères")
      */
     private $name;
 
@@ -30,9 +32,10 @@ class Category
     private $slug;
 
     /**
-     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="category")
+     * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="category")
      */
     private $products;
+
 
     public function __construct()
     {
@@ -69,7 +72,7 @@ class Category
     }
 
     /**
-     * @return Collection<int, Product>
+     * @return Collection|Product[]
      */
     public function getProducts(): Collection
     {
@@ -81,18 +84,6 @@ class Category
         if (!$this->products->contains($product)) {
             $this->products[] = $product;
             $product->setCategory($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProduct(Product $product): self
-    {
-        if ($this->products->removeElement($product)) {
-            // set the owning side to null (unless already changed)
-            if ($product->getCategory() === $this) {
-                $product->setCategory(null);
-            }
         }
 
         return $this;
