@@ -1,0 +1,5 @@
+STYLE:
+    - Modifier les couleurs login et logout (le theme bootstrap ne prend pas en compte les class success , info , warning , danger pour les boutons)
+    
+
+DEV:
