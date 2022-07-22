@@ -17,6 +17,24 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class CategoryController extends AbstractController
 {
     /**
+     * @Route("/{slug}", name="product_category", priority=-1)
+     */
+
+    public function category($slug, CategoryRepository $categoryRepository)
+    {
+        $category = $categoryRepository->findOneBy(['slug' => $slug]);
+
+        if (!$category) {
+            throw $this->createNotFoundException('Category not found');
+        }
+
+        return $this->render('product/category.html.twig', [
+            "category" => $category,
+            "slug" => $slug,
+        ]);
+    }
+
+    /**
      * @Route("/admin/category/create", name="category_create")
      */
     public function create(Request $request, EntityManagerInterface $em, SluggerInterface $slugger)

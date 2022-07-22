@@ -19,23 +19,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ProductController extends AbstractController
 {
-    /**
-     * @Route("/{slug}", name="product_category", priority=-1)
-     */
-
-    public function category($slug, CategoryRepository $categoryRepository)
-    {
-        $category = $categoryRepository->findOneBy(['slug' => $slug]);
-
-        if (!$category) {
-            throw $this->createNotFoundException('Category not found');
-        }
-
-        return $this->render('product/category.html.twig', [
-            "category" => $category,
-            "slug" => $slug,
-        ]);
-    }
 
     /**
      * @Route("/{category_slug}/{slug}", name="product_show", priority=-1)

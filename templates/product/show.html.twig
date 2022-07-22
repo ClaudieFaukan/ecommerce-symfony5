@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block body %}
-	<ol class="breadcrumb">
+	<ol class=" breadcrumb">
 		<li class="breadcrumb-item">
 			<a href="{{path('home')}}">Accueil</a>
 		</li>
@@ -16,8 +16,8 @@
 		<li class="breadcrumb-item active">{{product.name}}</li>
 	</ol>
 	<h1>{{product.name}}
-		{{product.price / 100}}
-		&euro;</h1>
+		{{product.price / 100}}&euro;
+	</h1>
 	<div class="row">
 		<div class="col-4">
 			<img class="img-fluid" src="{{product.mainPicture}}" alt="">
@@ -25,7 +25,7 @@
 		<div class="col">
 			<span class="badge badge-primary">{{product.category.name}}</span>
 			<p>{{product.shortDescription}}</p>
-			<a class="btn btn-outline-success btn-lg" href="#">
+			<a class="btn btn-outline-success btn-lg" href="{{path('cart_add',{'id': product.id})}}">
 				<i class="fas fa-shopping-cart"></i>Ajouter au panier</a>
 		</div>
 	</div>

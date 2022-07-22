@@ -3,3 +3,4 @@ STYLE:
     
 
 DEV:
+    - Mettre en place Ajax pour incrementer/decrementer/add product dans le panier
