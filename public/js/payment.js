@@ -1,7 +1,5 @@
 // This is your test publishable API key.
 const stripe = Stripe(stripePublicKey);
-// On récupère la clé secrète passé par le controller à TWIG, comme présenté dans la vidéo
-const clientSecret = "{{ clientSecret }}";
 // The items the customer wants to buy
 function initialize() {
     document.querySelector("#payment-form").addEventListener("submit", handleSubmit);
