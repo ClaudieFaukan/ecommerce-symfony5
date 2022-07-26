@@ -9,37 +9,29 @@ use App\Entity\PurchaseItem;
 use App\Form\CartConfirmationType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class PurchaseConfirmationController extends AbstractController
 {
-    protected $factory;
-    protected $security;
-    protected $router;
     protected $cartSercice;
     protected $em;
 
-    public function __construct(FormFactoryInterface $factory, Security $security, RouterInterface $router, CartService $cartSercice, EntityManagerInterface $em)
+    public function __construct(CartService $cartSercice, EntityManagerInterface $em)
     {
-        $this->factory = $factory;
-        $this->security = $security;
-        $this->router = $router;
         $this->cartSercice = $cartSercice;
         $this->em = $em;
     }
 
     /**
      * @Route("/purchase/confirm", name="purchase_confirm")
+     * @IsGranted("ROLE_USER", message="Vous devez être connecté")
      */
     public function confirm(Request $request)
     {
-        $form = $this->factory->create(CartConfirmationType::class);
+
+        $form = $this->createForm(CartConfirmationType::class);
 
         $form->handleRequest($request);
 
@@ -47,15 +39,11 @@ class PurchaseConfirmationController extends AbstractController
 
             $this->addFlash("warning", "Vous devez remplir le formulaire");
 
-            return new RedirectResponse($this->router->generate("cart_show"));
+            return $this->redirectToRoute("cart_show");
         }
 
-        $user = $this->security->getUser();
+        $user = $this->getUser();
 
-        if (!$user) {
-
-            throw new AccessDeniedException("Vous devez être connecté");
-        }
 
         $cartItems = $this->cartSercice->getDetailedItems();
 
@@ -63,7 +51,7 @@ class PurchaseConfirmationController extends AbstractController
 
             $this->addFlash("warning", "Panier ne peut être vide");
 
-            return new RedirectResponse($this->router->generate('cart_show'));
+            return $this->redirectToRoute('cart_show');
         }
         /** @var Purchase */
         $purchase = $form->getData();
@@ -91,8 +79,10 @@ class PurchaseConfirmationController extends AbstractController
 
         $this->em->flush();
 
+        $this->cartSercice->empty();
+
         $this->addFlash("success", "commande enregistrer");
 
-        return new RedirectResponse($this->router->generate("purchase_index"));
+        return $this->redirectToRoute("purchase_index");
     }
 }

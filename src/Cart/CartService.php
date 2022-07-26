@@ -102,4 +102,9 @@ class CartService
 
         $this->saveCart($cart);
     }
+
+    public function empty()
+    {
+        $this->saveCart([]);
+    }
 }

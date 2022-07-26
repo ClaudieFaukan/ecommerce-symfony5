@@ -45,14 +45,22 @@
 				</tr>
 			</tfoot>
 		</table>
-		<h2>Confirmer votre commande</h2>
-		{{ form_start(confirmationForm, {"action" : path("purchase_confirm")}) }}
 
-		{{ form_widget(confirmationForm) }}
+		{% if app.user %}
+			<h2>Confirmer votre commande</h2>
+			{{ form_start(confirmationForm, {"action" : path("purchase_confirm")}) }}
 
-		<button type="submit" class="btn btn-success">Passer au paiement</button>
+			{{ form_widget(confirmationForm) }}
 
-		{{ form_end(confirmationForm) }}
+			<button type="submit" class="btn btn-success">Passer au paiement</button>
+
+			{{ form_end(confirmationForm) }}
+		{% else %}
+			<h2>Vous devez être connecter pour confirmer pour votre commande</h2>
+			<a href="{{path("security_login")}}" class="btn btn-success">Me connecter</a>
+			ou
+			<a href="">Créer un compte</a>
+		{% endif %}
 
 	{% else %}
 		<h2>Votre panier est vide pour le moment</h2>
