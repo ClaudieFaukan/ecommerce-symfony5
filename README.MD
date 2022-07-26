@@ -22,3 +22,12 @@ admin@admin.fr -> admin
 
 User:
 user1@gmail.com -> password
+
+## Paiement
+
+modifier le config/service.yaml et rentrer votre propre clé api secret et public stripe
+
+Pour tester les paiements et les différents état possible ( accepter, refuser, en attente de double authentification)
+voici le lien de la doc Stripe pour obtenir les numeros de carte bancaire adequat a vos tests : https://stripe.com/docs/testing?numbers-or-method-or-token=card-numbers
+
+
