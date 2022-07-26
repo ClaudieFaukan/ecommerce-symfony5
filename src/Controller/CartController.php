@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Cart\CartService;
+use App\Form\CartConfirmationType;
 use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -53,10 +54,13 @@ class CartController extends AbstractController
     {
         $detailCart = $this->cartService->getDetailedItems();
         $total = $this->cartService->getTotal();
+        $form = $this->createForm(CartConfirmationType::class);
+
 
         return $this->render("cart/index.html.twig", [
             'items' => $detailCart,
-            'total' => $total
+            'total' => $total,
+            'confirmationForm' => $form->createView()
         ]);
     }
 

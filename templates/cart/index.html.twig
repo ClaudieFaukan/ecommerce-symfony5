@@ -45,6 +45,15 @@
 				</tr>
 			</tfoot>
 		</table>
+		<h2>Confirmer votre commande</h2>
+		{{ form_start(confirmationForm, {"action" : path("purchase_confirm")}) }}
+
+		{{ form_widget(confirmationForm) }}
+
+		<button type="submit" class="btn btn-success">Passer au paiement</button>
+
+		{{ form_end(confirmationForm) }}
+
 	{% else %}
 		<h2>Votre panier est vide pour le moment</h2>
 	{% endif %}

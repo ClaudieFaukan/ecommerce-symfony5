@@ -39,6 +39,9 @@ class CartService
         $this->saveCart($cart);
     }
 
+    /**
+     * @return CartItem[]
+     */
     public function getDetailedItems(): array
     {
 
