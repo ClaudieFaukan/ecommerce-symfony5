@@ -7,6 +7,7 @@ use App\Entity\Purchase;
 use App\Cart\CartService;
 use App\Entity\PurchaseItem;
 use App\Form\CartConfirmationType;
+use App\Purchase\PurchasePersister;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,11 +18,13 @@ class PurchaseConfirmationController extends AbstractController
 {
     protected $cartSercice;
     protected $em;
+    protected $persister;
 
-    public function __construct(CartService $cartSercice, EntityManagerInterface $em)
+    public function __construct(CartService $cartSercice, EntityManagerInterface $em, PurchasePersister $persister)
     {
         $this->cartSercice = $cartSercice;
         $this->em = $em;
+        $this->persister = $persister;
     }
 
     /**
@@ -42,9 +45,6 @@ class PurchaseConfirmationController extends AbstractController
             return $this->redirectToRoute("cart_show");
         }
 
-        $user = $this->getUser();
-
-
         $cartItems = $this->cartSercice->getDetailedItems();
 
         if (count($cartItems) === 0) {
@@ -56,28 +56,7 @@ class PurchaseConfirmationController extends AbstractController
         /** @var Purchase */
         $purchase = $form->getData();
 
-        $purchase->setUser($user)
-            ->setPurchasedAt(new DateTime())
-            ->setTotal($this->cartSercice->getTotal());
-
-
-        $this->em->persist($purchase);
-
-        foreach ($this->cartSercice->getDetailedItems() as $cartItem) {
-
-            $purchaseItem = new PurchaseItem;
-
-            $purchaseItem->setPurchase($purchase)
-                ->setProduct($cartItem->product)
-                ->setProductName($cartItem->product->getName())
-                ->setQuantity($cartItem->qty)
-                ->setTotal($cartItem->getTotal())
-                ->setProductPrice($cartItem->product->getPrice());
-
-            $this->em->persist($purchaseItem);
-        }
-
-        $this->em->flush();
+        $this->persister->storePurchase($purchase);
 
         $this->cartSercice->empty();
 
