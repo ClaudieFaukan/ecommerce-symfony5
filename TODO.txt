@@ -1,9 +1,17 @@
 STYLE:
     - Rendre responsive le site
     - Modifier les couleurs login et logout (le theme bootstrap ne prend pas en compte les class success , info , warning , danger pour les boutons)
+    - Refacto front en react js ?
+    
     
 
 DEV:
     - Mettre en place Ajax pour incrementer/decrementer/add product dans le panier
     - Appronfondir le webhook de stripe pour ajouter les ecouteurs d'évevements et augmenter la sécurité 
         docs : https://stripe.com/docs/payments/checkout/fulfill-orders
+    - Ajout de paypal
+    - Ajout de webhook pour livraison
+    - Ajout tableau de bord admin
+    - Ajout de mon compte client
+    - Ajout de monitoring et de log ?
+
