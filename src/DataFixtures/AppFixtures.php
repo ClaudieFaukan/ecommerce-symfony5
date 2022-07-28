@@ -77,6 +77,7 @@ class AppFixtures extends Fixture
 
             $manager->persist($category);
 
+            /*
             //Creation Fake products de cette categorie
             $products = [];
             for ($i = 0; $i < mt_rand(10, 20); $i++) {
@@ -90,8 +91,10 @@ class AppFixtures extends Fixture
 
                 $manager->persist($product);
                 $products[] = $product;
-            }
+                
+            }*/
         }
+        /*
         //creation fake purchase
         for ($p = 0; $p < mt_rand(20, 40); $p++) {
 
@@ -127,6 +130,7 @@ class AppFixtures extends Fixture
 
             $manager->persist($purchase);
         }
+        */
         $manager->flush();
     }
 }
