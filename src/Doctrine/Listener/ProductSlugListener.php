@@ -23,6 +23,6 @@ class ProductSlugListener
             // SluggerInterface
             $entity->setSlug(strtolower($this->slugger->slug($entity->getName())));
         }
-        $this->logger->info("appeler");
+        $this->logger->info("appeler est le slug est :{$entity->getSlug()} !!");
     }
 }
