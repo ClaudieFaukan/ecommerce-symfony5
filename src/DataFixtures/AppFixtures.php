@@ -82,14 +82,14 @@ class AppFixtures extends Fixture
 
 */
         //test
-
+        $category = $this->categoryRepository->find(11);
         //Creation Fake products de cette categorie
         $products = [];
         for ($i = 0; $i < mt_rand(10, 20); $i++) {
             $product = new Product();
             $product->setName($faker->productName())
                 ->setPrice($faker->price(400, 2000))
-                ->setCategory($this->categoryRepository->find(11))
+                ->setCategory($category)
                 ->setShortDescription($faker->paragraph())
                 //->setSlug($this->slugger->slug(strtolower($product->getName())))
                 ->setMainPicture($faker->imageUrl(400, 400, true));
