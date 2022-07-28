@@ -91,7 +91,7 @@ class AppFixtures extends Fixture
                 ->setPrice($faker->price(400, 2000))
                 ->setCategory($category)
                 ->setShortDescription($faker->paragraph())
-                //->setSlug($this->slugger->slug(strtolower($product->getName())))
+                ->setSlug("test")
                 ->setMainPicture($faker->imageUrl(400, 400, true));
 
             $manager->persist($product);
