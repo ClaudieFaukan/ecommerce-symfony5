@@ -23,7 +23,6 @@ class ProductViewLogSubscriber implements EventSubscriberInterface
 
     public function getProductViewLog(ProductViewEvent $productViewEvent)
     {
-
         $this->logger->info("mail envoyer pour le produit N°-" . $productViewEvent->getProduct()->getId());
     }
 }
