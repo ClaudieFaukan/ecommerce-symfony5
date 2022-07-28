@@ -55,7 +55,7 @@ class AppFixtures extends Fixture
             $hash = $this->passwordHasher->hashPassword($user, 'password');
             $user->setEmail("user$u@gmail.com");
             $user->setPassword($hash);
-            $user->setFullName($faker->name);
+            $user->setFullName($faker->name());
 
             //sert pour les fake purchases
             $users[] = $user;
@@ -67,7 +67,8 @@ class AppFixtures extends Fixture
         for ($c = 0; $c < 3; $c++) {
 
             $category = new Category();
-            $category->setName($faker->department);
+            $category->setName($faker->department());
+            $category->setSlug($this->slugger->slug(strtolower($category->getName())));
 
             $manager->persist($category);
 
@@ -75,10 +76,11 @@ class AppFixtures extends Fixture
             $products = [];
             for ($i = 0; $i < mt_rand(10, 20); $i++) {
                 $product = new Product();
-                $product->setName($faker->productName)
+                $product->setName($faker->productName())
                     ->setPrice($faker->price(400, 200000))
                     ->setCategory($category)
-                    ->setShortDescription($faker->paragraph)
+                    ->setShortDescription($faker->paragraph())
+                    ->setSlug($this->slugger->slug(strtolower($product->getName())))
                     ->setMainPicture($faker->imageUrl(400, 400, true));
 
                 $manager->persist($product);
@@ -90,10 +92,10 @@ class AppFixtures extends Fixture
 
             $purchase = new Purchase;
 
-            $purchase->setFullName($faker->name)
-                ->setAddress($faker->streetAddress)
-                ->setCity($faker->city)
-                ->setPostalCode($faker->postcode)
+            $purchase->setFullName($faker->name())
+                ->setAddress($faker->streetAddress())
+                ->setCity($faker->city())
+                ->setPostalCode($faker->postcode())
                 ->setUser($faker->randomElement($users))
                 ->setTotal(mt_rand(2000, 30000))
                 ->setPurchasedAt($faker->dateTimeBetween('-6 month'));

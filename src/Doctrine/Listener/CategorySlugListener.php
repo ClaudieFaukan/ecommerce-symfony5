@@ -3,9 +3,8 @@
 namespace App\Doctrine\Listener;
 
 use App\Entity\Category;
+use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Symfony\Component\String\Slugger\SluggerInterface;
-use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
-use Doctrine\Persistence\Event\LifecycleEventArgs as EventLifecycleEventArgs;
 
 class CategorySlugListener
 {
@@ -16,7 +15,7 @@ class CategorySlugListener
         $this->slugger = $slugger;
     }
 
-    public function prePersist(Category $entity, EventLifecycleEventArgs $event)
+    public function prePersist(Category $entity, LifecycleEventArgs $event)
     {
         if (empty($entity->getSlug())) {
             // SluggerInterface
