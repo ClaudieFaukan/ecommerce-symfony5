@@ -62,7 +62,7 @@ class AppFixtures extends Fixture
 
             $manager->persist($user);
         }
-
+        /*
         //Creation Fake Category
         for ($c = 0; $c < 3; $c++) {
 
@@ -122,7 +122,7 @@ class AppFixtures extends Fixture
 
             $manager->persist($purchase);
         }
-
+*/
         $manager->flush();
     }
 }
