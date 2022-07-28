@@ -4,6 +4,10 @@ Disponible avec un jeux de fausse données livrer par Faker.Projet complet avec 
 
 Créer en php 7.4.9 et mysql 5.7 avec Symfony 5.4, bootstrap 4
 
+## Demo 
+
+Visible : https://ecommerce-symfony-5.herokuapp.com
+
 ## Installation:
 composer require
 composer update
