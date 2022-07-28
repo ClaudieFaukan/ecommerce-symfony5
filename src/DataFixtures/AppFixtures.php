@@ -38,7 +38,7 @@ class AppFixtures extends Fixture
         $faker->addProvider(new \Liior\Faker\Prices($faker));
         $faker->addProvider(new \Bezhanov\Faker\Provider\Commerce($faker));
         $faker->addProvider(new \Bluemmb\Faker\PicsumPhotosProvider($faker));
-        /*
+
         //creation admin
         $admin = new User;
         $hash = $this->passwordHasher->hashPassword($admin, "admin");
@@ -65,7 +65,7 @@ class AppFixtures extends Fixture
 
             $manager->persist($user);
         }
-*/
+
         //test debug
         $users = $this->userRepository->findAll();
         //Creation Fake Category
@@ -77,7 +77,7 @@ class AppFixtures extends Fixture
 
             $manager->persist($category);
 
-            /*
+
             //Creation Fake products de cette categorie
             $products = [];
             for ($i = 0; $i < mt_rand(10, 20); $i++) {
@@ -91,8 +91,7 @@ class AppFixtures extends Fixture
 
                 $manager->persist($product);
                 $products[] = $product;
-                
-            }*/
+            }
         }
         /*
         //creation fake purchase
