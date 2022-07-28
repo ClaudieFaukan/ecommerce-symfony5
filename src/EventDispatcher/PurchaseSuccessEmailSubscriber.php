@@ -34,8 +34,7 @@ class PurchaseSuccessEmailSubscriber implements EventSubscriberInterface
 
     public function sendSuccessEmail(PurchaseSuccessEvent $purchaseSuccessEvent)
     {
-
-        /*
+        /** @var User */
         $currentUser = $this->security->getUser();
         $purchase = $purchaseSuccessEvent->getPurchase();
 
@@ -51,7 +50,6 @@ class PurchaseSuccessEmailSubscriber implements EventSubscriberInterface
             ]);
 
         $this->mailer->send($email);
-        */
 
         $this->logger->info("succes du mail", [$purchaseSuccessEvent->getPurchase()->getId()]);
     }

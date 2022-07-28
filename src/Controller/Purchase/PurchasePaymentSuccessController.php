@@ -38,8 +38,8 @@ class PurchasePaymentSuccessController extends AbstractController
         $cartService->empty();
 
         // branchement de la fonction pour envoi email lorsque validé
-        //$purchaseEvent = new PurchaseSuccessEvent($purchase);
-        //$eventDispatcherInterface->dispatch($purchaseEvent, 'purchase.success');
+        $purchaseEvent = new PurchaseSuccessEvent($purchase);
+        $eventDispatcherInterface->dispatch($purchaseEvent, 'purchase.success');
 
         $this->addFlash("success", "Commande validé !");
 
