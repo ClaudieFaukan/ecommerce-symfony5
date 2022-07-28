@@ -25,7 +25,7 @@ class AppFixtures extends Fixture
     protected $userRepository;
     protected $categoryRepository;
 
-    public function __construct(SluggerInterface $slugger, UserPasswordHasherInterface $passwordHasher, UserRepository $userRepository,CategoryRepository $categoryRepository)
+    public function __construct(SluggerInterface $slugger, UserPasswordHasherInterface $passwordHasher, UserRepository $userRepository, CategoryRepository $categoryRepository)
     {
         $this->slugger = $slugger;
         $this->passwordHasher = $passwordHasher;
@@ -41,7 +41,7 @@ class AppFixtures extends Fixture
         $faker->addProvider(new \Liior\Faker\Prices($faker));
         $faker->addProvider(new \Bezhanov\Faker\Provider\Commerce($faker));
         $faker->addProvider(new \Bluemmb\Faker\PicsumPhotosProvider($faker));
-/*
+        /*
         //creation admin
         $admin = new User;
         $hash = $this->passwordHasher->hashPassword($admin, "admin");
@@ -81,23 +81,23 @@ class AppFixtures extends Fixture
             $manager->persist($category);
 
 */
-//test
+        //test
 
-            //Creation Fake products de cette categorie
-            $products = [];
-            for ($i = 0; $i < mt_rand(10, 20); $i++) {
-                $product = new Product();
-                $product->setName($faker->productName())
-                    ->setPrice($faker->price(400, 2000))
-                    ->setCategory($this->categoryRepository->find(11))
-                    ->setShortDescription($faker->paragraph())
-                    ->setSlug($this->slugger->slug(strtolower($product->getName())))
-                    ->setMainPicture($faker->imageUrl(400, 400, true));
+        //Creation Fake products de cette categorie
+        $products = [];
+        for ($i = 0; $i < mt_rand(10, 20); $i++) {
+            $product = new Product();
+            $product->setName($faker->productName())
+                ->setPrice($faker->price(400, 2000))
+                ->setCategory($this->categoryRepository->find(11))
+                ->setShortDescription($faker->paragraph())
+                ->setSlug($this->slugger->slug(strtolower($product->getName())))
+                ->setMainPicture($faker->imageUrl(400, 400, true));
 
-                $manager->persist($product);
-                $products[] = $product;
-            }
+            $manager->persist($product);
+            $products[] = $product;
         }
+
         /*
         //creation fake purchase
         for ($p = 0; $p < mt_rand(20, 40); $p++) {
