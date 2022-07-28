@@ -9,6 +9,7 @@ use Liior\Faker\Prices;
 use App\Entity\Category;
 use App\Entity\Purchase;
 use App\Entity\PurchaseItem;
+use App\Repository\CategoryRepository;
 use App\Repository\UserRepository;
 use Bezhanov\Faker\Provider\Commerce;
 use Bluemmb\Faker\PicsumPhotosProvider;
@@ -22,12 +23,14 @@ class AppFixtures extends Fixture
     protected $slugger;
     protected $passwordHasher;
     protected $userRepository;
+    protected $categoryRepository;
 
-    public function __construct(SluggerInterface $slugger, UserPasswordHasherInterface $passwordHasher, UserRepository $userRepository)
+    public function __construct(SluggerInterface $slugger, UserPasswordHasherInterface $passwordHasher, UserRepository $userRepository,CategoryRepository $categoryRepository)
     {
         $this->slugger = $slugger;
         $this->passwordHasher = $passwordHasher;
         $this->userRepository = $userRepository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     //RAPPEL: lancer la commande de fixture avec php bin/console doctrine:fixtures:load
@@ -38,7 +41,7 @@ class AppFixtures extends Fixture
         $faker->addProvider(new \Liior\Faker\Prices($faker));
         $faker->addProvider(new \Bezhanov\Faker\Provider\Commerce($faker));
         $faker->addProvider(new \Bluemmb\Faker\PicsumPhotosProvider($faker));
-
+/*
         //creation admin
         $admin = new User;
         $hash = $this->passwordHasher->hashPassword($admin, "admin");
@@ -77,6 +80,8 @@ class AppFixtures extends Fixture
 
             $manager->persist($category);
 
+*/
+//test
 
             //Creation Fake products de cette categorie
             $products = [];
@@ -84,7 +89,7 @@ class AppFixtures extends Fixture
                 $product = new Product();
                 $product->setName($faker->productName())
                     ->setPrice($faker->price(400, 2000))
-                    ->setCategory($category)
+                    ->setCategory($this->categoryRepository->find(11))
                     ->setShortDescription($faker->paragraph())
                     ->setSlug($this->slugger->slug(strtolower($product->getName())))
                     ->setMainPicture($faker->imageUrl(400, 400, true));
