@@ -28,8 +28,13 @@ class PurchaseConfirmationController extends AbstractController
     }
 
     /**
+     * I want to create a form, handle the request, check if the form is submitted, get the cart items,
+     * check if the cart is empty, get the purchase data, store the purchase and redirect to the payment
+     * form
+     * 
      * @Route("/purchase/confirm", name="purchase_confirm")
      * @IsGranted("ROLE_USER", message="Vous devez être connecté")
+     * @param Request request The request object.
      */
     public function confirm(Request $request)
     {

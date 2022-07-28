@@ -24,7 +24,14 @@ class CartController extends AbstractController
         $this->productRepository = $productRepository;
     }
     /**
+     * It adds a product to the cart
+     * 
      * @Route("/cart/add/{id}", name="cart_add", requirements={"id"="\d+"})
+     * 
+     * @param id The id of the product to add to the cart
+     * @param Request request The request object.
+     * 
+     * @return Response A response object
      */
     public function add($id, Request $request): Response
     {
@@ -48,7 +55,11 @@ class CartController extends AbstractController
     }
 
     /** 
+     * It gets the detailed items from the cart service, gets the total from the cart service, creates a
+     * form, and renders the cart/index.html.twig template
+     * 
      * @Route("/cart", name="cart_show")
+     * @return Response A response object
      */
     public function show(): Response
     {
@@ -65,7 +76,12 @@ class CartController extends AbstractController
     }
 
     /**
+     * It deletes a product from the cart
+     * 
      * @Route("/cart/delete/{id}", name="cart_delete", requirements={"id":"\d+"})
+     * @param id The id of the product to remove from the cart
+     * 
+     * @return The product is being returned to the cart.
      */
     public function delete($id)
     {
@@ -83,7 +99,12 @@ class CartController extends AbstractController
 
 
     /**
+     * It checks if the product exists, then it calls the decrement method of the cart service, then it
+     * adds a flash message and redirects to the cart page
+     * 
      * @Route("/cart/decrement/{id}", name="cart_decrement", requirements={"id":"\d+"})
+     * @param id The id of the product to remove from the cart
+     * @return The method returns a redirect to the route cart_show.
      */
     public function decrement($id)
     {

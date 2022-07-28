@@ -16,8 +16,18 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 class PurchasePaymentSuccessController extends AbstractController
 {
     /**
+     * The function success() is called when the user clicks on the "Pay" button. It checks if the
+     * purchase exists, if it belongs to the user, and if it has already been paid. If everything is
+     * ok, the purchase status is set to "paid" and the user is redirected to the purchase index page
+     * 
      * @Route("/purchase/finish/{id}", name="purchase_payment_success")
      * @IsGranted("ROLE_USER")
+     * 
+     * @param id The id of the purchase
+     * @param PurchaseRepository purchaseRepository The repository for the Purchase entity.
+     * @param EntityManagerInterface em
+     * @param CartService cartService The service that manages the cart
+     * @param EventDispatcherInterface eventDispatcherInterface The event dispatcher.
      */
     public function success($id, PurchaseRepository $purchaseRepository, EntityManagerInterface $em, CartService $cartService, EventDispatcherInterface $eventDispatcherInterface)
     {

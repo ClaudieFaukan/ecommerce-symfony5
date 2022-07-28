@@ -23,7 +23,15 @@ class ProductController extends AbstractController
 {
 
     /**
+     * We create a new instance of our event, we dispatch it and we pass it to the event dispatcher
+     * 
      * @Route("/{category_slug}/{slug}", name="product_show", priority=-1)
+     * 
+     * @param slug The slug of the product to display
+     * @param ProductRepository productRepository The repository for the Product entity.
+     * @param EventDispatcherInterface eventDispatcherInterface The event dispatcher service.
+     * 
+     * @return The product object
      */
     public function show($slug, ProductRepository $productRepository, EventDispatcherInterface $eventDispatcherInterface)
     {
@@ -44,8 +52,20 @@ class ProductController extends AbstractController
             "slug" => $slug,
         ]);
     }
+
     /**
+     * It takes a product id, finds the product, creates a form, handles the request, validates the
+     * form, flushes the entity manager, and redirects to the product show page
+     * 
      * @Route("/admin/product/{id}/edit", name="product_edit")
+     * 
+     * @param id the id of the product to edit
+     * @param ProductRepository productRepository The repository for the Product entity.
+     * @param Request request The request object.
+     * @param EntityManagerInterface em
+     * @param ValidatorInterface validator The validator service
+     * 
+     * @return The form view
      */
     public function edit($id, ProductRepository $productRepository, Request $request, EntityManagerInterface $em, ValidatorInterface $validator)
     {
@@ -73,7 +93,16 @@ class ProductController extends AbstractController
     }
 
     /**
+     * We create a new product, create a form for it, handle the request, check if the form is valid,
+     * persist the product, flush the entity manager, and redirect to the product show page
+     * 
      * @Route("/admin/product/create", name="product_create")
+     * 
+     * @param Request request The request object.
+     * @param SluggerInterface slugger
+     * @param EntityManagerInterface em
+     * 
+     * @return A form view
      */
     public function create(Request $request, SluggerInterface $slugger, EntityManagerInterface $em)
     {

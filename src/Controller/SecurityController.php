@@ -10,8 +10,16 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
+
     /**
+     * It renders the login.html.twig template, passing it a form and an error
+     * 
      * @Route("/login", name="security_login")
+     * 
+     * @param AuthenticationUtils utils This is an instance of the AuthenticationUtils class. This class is
+     * used to get information about the last authentication error.
+     * 
+     * @return Response A Response object
      */
     public function login(AuthenticationUtils $utils): Response
     {

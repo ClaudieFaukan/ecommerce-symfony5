@@ -12,8 +12,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class PurchasePaymentController extends AbstractController
 {
     /**
+     * If the purchase exists, the user is the owner of the purchase and the purchase is not paid, then
+     * show the payment form
+     * 
      * @Route("/purchase/pay/{id}", name="purchase_payment_form")
      * @IsGranted("ROLE_USER")
+     * @param id The id of the purchase
+     * @param PurchaseRepository purchaseRepository The repository for the Purchase entity.
+     * @param StripeService stripeService This is the service we created earlier.
+     * 
+     * @return The clientSecret and the purchase object.
      */
     public function showCardForm($id, PurchaseRepository $purchaseRepository, StripeService $stripeService)
     {

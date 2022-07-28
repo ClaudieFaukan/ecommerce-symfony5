@@ -15,6 +15,14 @@ class ProductViewEvent extends Event
         $this->product = $product;
     }
 
+    /**
+     * Public function getProduct(): Product
+     * 
+     * The function is public, it's called getProduct, it doesn't take any parameters, and it returns a
+     * Product.
+     * 
+     * @return Product The product object.
+     */
     public function getProduct(): Product
     {
         return $this->product;

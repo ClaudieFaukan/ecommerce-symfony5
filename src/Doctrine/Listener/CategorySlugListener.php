@@ -15,6 +15,12 @@ class CategorySlugListener
         $this->slugger = $slugger;
     }
 
+    /**
+     * > If the slug is empty, set it to the lowercase version of the name
+     * 
+     * @param Category entity The entity that is being persisted.
+     * @param LifecycleEventArgs event The event that was triggered.
+     */
     public function prePersist(Category $entity, LifecycleEventArgs $event)
     {
         if (empty($entity->getSlug())) {

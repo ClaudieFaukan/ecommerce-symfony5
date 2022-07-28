@@ -25,6 +25,18 @@ class PurchaseSuccessEmailSubscriber implements EventSubscriberInterface
         $this->security = $security;
     }
 
+    /**
+     * "When the event 'purchase.success' is triggered, call the function 'sendSuccessEmail'".
+     * 
+     * The event name is arbitrary, but it's a good idea to use a name that describes the event.
+     * 
+     * The function name is also arbitrary, but it's a good idea to use a name that describes the function.
+     * 
+     * 
+     * The function name is the name of a function that you will create in the same class.
+     * 
+     * @return An array of events and their associated methods.
+     */
     public static function getSubscribedEvents()
     {
         return [
@@ -32,6 +44,11 @@ class PurchaseSuccessEmailSubscriber implements EventSubscriberInterface
         ];
     }
 
+    /**
+     * It sends an email to the user who just made a purchase
+     * 
+     * @param PurchaseSuccessEvent purchaseSuccessEvent The event that was triggered.
+     */
     public function sendSuccessEmail(PurchaseSuccessEvent $purchaseSuccessEvent)
     {
         /** @var User */

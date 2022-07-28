@@ -22,11 +22,25 @@ class LoginFormAuthenticator extends AbstractAuthenticator
     {
         $this->generator = $generator;
     }
+    /**
+     * If the route is security_login and the request method is POST, then return true.
+     * 
+     * @param Request request The current request object.
+     * 
+     * @return ?bool The return value is a boolean.
+     */
     public function supports(Request $request): ?bool
     {
         return $request->attributes->get('_route') === 'security_login' && $request->isMethod('POST');
     }
 
+    /**
+     * It takes a request, extracts the email and password from it, and returns a Passport object
+     * 
+     * @param Request request The request object.
+     * 
+     * @return Passport A Passport object
+     */
     public function authenticate(Request $request): Passport
     {
         try {
@@ -37,11 +51,29 @@ class LoginFormAuthenticator extends AbstractAuthenticator
         }
     }
 
+    /**
+     * If the user is successfully authenticated, redirect them to the homepage
+     * 
+     * @param Request request The request that resulted in an AuthenticationException
+     * @param TokenInterface token The token that was used to authenticate the user.
+     * @param string firewallName The name of the firewall that was used to authenticate the user.
+     * 
+     * @return ?Response A RedirectResponse object.
+     */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
         return new RedirectResponse("/");
     }
 
+    /**
+     * If the user fails to login, redirect them to the login page
+     * 
+     * @param Request request The request that resulted in an AuthenticationException
+     * @param AuthenticationException exception The exception that was thrown to cause this authentication
+     * exception
+     * 
+     * @return ?Response A RedirectResponse object.
+     */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
     {
         $request->getSession()->set(Security::AUTHENTICATION_ERROR, $exception);

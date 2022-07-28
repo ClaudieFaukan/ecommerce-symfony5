@@ -21,6 +21,13 @@ class PurchasePersister
         $this->cartService = $cartService;
         $this->em = $em;
     }
+    /**
+     * It takes a purchase object, sets the user, persists the purchase, loops through the cart items,
+     * creates a purchase item, sets the purchase, product, product name, quantity, total, and product
+     * price, persists the purchase item, and then flushes the entity manager.
+     * 
+     * @param Purchase purchase The purchase object
+     */
 
     public function storePurchase(Purchase $purchase)
     {

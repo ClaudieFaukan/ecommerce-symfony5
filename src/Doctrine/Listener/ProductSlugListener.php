@@ -16,6 +16,11 @@ class ProductSlugListener
         $this->slugger = $slugger;
         $this->logger = $logger;
     }
+    /**
+     * If the slug is empty, then set the slug to the lowercase version of the name.
+     * 
+     * @param Product entity The entity that is being persisted.
+     */
 
     public function prePersist(Product $entity)
     {
